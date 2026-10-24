@@ -32,65 +32,97 @@
 
 # Learn OOP 
 
-
-""" 
-
-This Dog class has two instance methods:
-
-.description() returns a string displaying the name and age of the dog.
-.speak() has one parameter called sound and returns a string containing the dog’s name and the sound that the dog makes.
-Save the modified Dog class to a file called dog.py and press F5 to run the program. Then open the interactive window and type the following to see your instance methods in action:
-
->>> miles = Dog("Miles", 4)
-
->>> miles.description()
-'Miles is 4 years old'
-
->>> miles.speak("Woof Woof")
-'Miles says Woof Woof'
-
->>> miles.speak("Bow Wow")
-'Miles says Bow Wow'
-In the above Dog class, .description() returns a string containing information about the Dog instance miles. When writing your own classes, it’s a good idea to have a method that returns a string containing useful information about an instance of the class. However, .description() isn’t the most Pythonic way of doing this.
+# TODO Learn from mistakes based from the last project
 
 
 
- """
-
-# Learn from mistakes based from the last project
-
-
-class Dog:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age 
-
-    def __str__(self):
-        return f"Dog {self.name} is {self.age} years old"
-
-    def speak(self, sound):
-        return f"damn: {sound}"
-
-class BullDog(Dog):
-
-    def __init__(self, kill_count):
-        self.kill_count = kill_count
-
-
-    def speak(self):
-        return super().speak("BARFFFFF")
-
-cupcake = BullDog( 4)
-
-
-print(cupcake.speak())
-
-
-
+ # TODO: Double check if the logic of the merging is correct
 # Classes
     # constructor
     # methods
 
+
+class GameMatrix:
+    def __init__(self, dimension):
+        self.__dimension = dimension
+        self.__score = 0 
+
+
+    # spawn two blocks initially
+    def start_game():
+        # loading the matrix
+        # spawn two blocks in a random location, each block is either a 2 or a 4
+        pass 
+
+    # movements
+    def slide_right(self):
+        self.move_blocks_to_the_right()
+        self.spawn_random_number()
+        pass
+
+    def slide_left(self):
+            pass
+
+    def slide_up(self):
+            pass
+
+    def slide_down(self):
+            pass
+
+    
+    # merges the blocks
+    def merge_blocks_to_the_right(self):
+          # if there's a merge:
+            self.add_score()
+            pass 
+
+
+    # compute score
+    def add_score(self):
+          pass 
+
+    # only ONE! either a 2 or 4
+    def spawn_random_number():
+          pass 
+
+    def two_thousand_forty_eight_block_exist():
+          pass 
+
+    def player_is_out_of_moves():
+          pass
+          
+
+
+def main():
+    # ask the player for the dimesion
+
+    # while True
+        # display the n x n grid with two blocks
+
+
+        # ask the player a move (left, right, down and up arrow key)
+        # if left:
+            # slide_left
+        # elif right:
+            # slide_right
+        # elif up:
+            # slide_up
+        # elif down:   
+            # slide_down  
+
+
+        # if player_is_out_of_moves():
+            # game over
+        # elif two_thousand_forty_eight_block_exist():
+            # winner !
+
+
+        # clear the screen then display the grid again and ask the player a move    
+
+      pass
+    
+
+    
 # Functions
 # Variables
 
