@@ -44,8 +44,9 @@
 
 class GameMatrix:
     def __init__(self, dimension):
-        self.__dimension = dimension
-        self.__score = 0 
+        self.dimension = dimension
+        self.matrix = [[2, 4, 2], [2, 2, 0], [0, 0, 2]]
+        self.score = 0 
 
 
     # spawn two blocks initially
@@ -73,7 +74,28 @@ class GameMatrix:
     # merges the blocks
     def merge_blocks_to_the_right(self):
           # if there's a merge:
-            self.add_score()
+            # self.add_score()
+
+            
+            
+            for i in range(self.dimension):
+               
+                j = self.dimension - 1
+                while j > 0:
+                    for k in range(j - 1, -1, -1):
+                            if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] != self.matrix[i][k]: # skip adjacent different numbers greater than 0
+                                  break
+                            elif self.matrix[i][j] == self.matrix[i][k]: # merge
+                                  self.matrix[i][j] = self.matrix[i][j] + self.matrix[i][k] # merge the block
+                                  self.matrix[i][k] = 0 # remove the merged number
+                                  break 
+                            elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
+                                  self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
+                                  self.matrix[i][k] = 0 # remove the moved number
+                    j -= 1
+                    
+
+
             pass 
 
 
@@ -117,11 +139,18 @@ def main():
             # winner !
 
 
-        # clear the screen then display the grid again and ask the player a move    
+        # clear the screen then display the grid again and ask the player a move
 
-      pass
+    threeBythree = GameMatrix(3)  
+
+    print(f"before: {threeBythree.matrix}")
+
+    threeBythree.merge_blocks_to_the_right()
     
+    print(f"before: {threeBythree.matrix}")
+        
 
+main()
     
 # Functions
 # Variables
