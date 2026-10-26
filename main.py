@@ -45,7 +45,7 @@
 class GameMatrix:
     def __init__(self, dimension):
         self.dimension = dimension
-        self.matrix = [[2, 4, 2], [2, 2, 0], [0, 0, 2]]
+        self.matrix = [[4, 2, 4, 2, 4], [16, 8, 4, 2, 32], [ 2, 2, 4, 4, 6], [6, 2, 2, 8, 8], [2, 2, 0, 2, 0]]
         self.score = 0 
 
 
@@ -85,7 +85,7 @@ class GameMatrix:
                     for k in range(j - 1, -1, -1):
                             if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] != self.matrix[i][k]: # skip adjacent different numbers greater than 0
                                   break
-                            elif self.matrix[i][j] == self.matrix[i][k]: # merge
+                            elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
                                   self.matrix[i][j] = self.matrix[i][j] + self.matrix[i][k] # merge the block
                                   self.matrix[i][k] = 0 # remove the merged number
                                   break 
@@ -141,13 +141,13 @@ def main():
 
         # clear the screen then display the grid again and ask the player a move
 
-    threeBythree = GameMatrix(3)  
+    threeBythree = GameMatrix(5)  
 
     print(f"before: {threeBythree.matrix}")
 
     threeBythree.merge_blocks_to_the_right()
     
-    print(f"before: {threeBythree.matrix}")
+    print(f"after: {threeBythree.matrix}")
         
 
 main()
