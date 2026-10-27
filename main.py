@@ -45,7 +45,14 @@
 class GameMatrix:
     def __init__(self, dimension):
         self.dimension = dimension
-        self.matrix = [[4, 2, 4, 2, 4], [16, 8, 4, 2, 0], [ 2, 2, 4, 4, 6], [6, 2, 2, 8, 8], [2, 2, 9, 2, 0]]
+        self.matrix = [[4, 2, 4, 2, 4, 0, 0 , 0], 
+                       [16, 8, 4, 2, 0, 0, 0, 0], 
+                       [2, 2, 4, 4, 6, 0, 0 , 0], 
+                       [6, 2, 2, 8, 8, 0, 0 , 0], 
+                       [2, 2, 9, 2, 0, 0, 0 , 0],
+                       [2, 2, 9, 2, 0, 0, 0 , 0],
+                       [2, 2, 9, 2, 0, 0, 0 , 0],
+                       [2, 2, 9, 2, 0, 0, 0 , 0]]
         self.score = 0 
 
 
@@ -81,7 +88,7 @@ class GameMatrix:
                 j = self.dimension - 1
                 while j > 0:
                     for k in range(j - 1, -1, -1):
-                            if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and (self.matrix[i][j] != self.matrix[i][k]) and abs(k - j) == 1: # skip adjacent different numbers greater than 0
+                            if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and (self.matrix[i][j] != self.matrix[i][k]): # skip different numbers greater than 0
                                   break
                             elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
                                   self.matrix[i][j] = self.matrix[i][j] + self.matrix[i][k] # merge the block
@@ -90,8 +97,28 @@ class GameMatrix:
                             elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
                                   self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
                                   self.matrix[i][k] = 0 # remove the moved number
-                    j -= 1
-                    
+                    j -= 1   
+            pass 
+    
+    def merge_blocks_to_the_left(self):
+          # if there's a merge:
+            # self.add_score()
+
+            for i in range(self.dimension):
+               
+                j = self.dimension - 1
+                while j > 0:
+                    for k in range(j - 1, -1, -1):
+                            if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and (self.matrix[i][j] != self.matrix[i][k]): # skip different numbers greater than 0
+                                  break
+                            elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
+                                  self.matrix[i][j] = self.matrix[i][j] + self.matrix[i][k] # merge the block
+                                  self.matrix[i][k] = 0 # remove the merged number
+                                  break 
+                            elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
+                                  self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
+                                  self.matrix[i][k] = 0 # remove the moved number
+                    j -= 1   
             pass 
 
 
@@ -137,7 +164,7 @@ def main():
 
         # clear the screen then display the grid again and ask the player a move
 
-    threeBythree = GameMatrix(5)  
+    threeBythree = GameMatrix(8)  
 
     print(f"before: {threeBythree.matrix}")
 
