@@ -45,7 +45,7 @@
 class GameMatrix:
     def __init__(self, dimension):
         self.dimension = dimension
-        self.matrix = [[4, 2, 4, 2, 4], [16, 8, 4, 2, 32], [ 2, 2, 4, 4, 6], [6, 2, 2, 8, 8], [2, 2, 0, 2, 0]]
+        self.matrix = [[4, 2, 4, 2, 4], [16, 8, 4, 2, 0], [ 2, 2, 4, 4, 6], [6, 2, 2, 8, 8], [2, 2, 9, 2, 0]]
         self.score = 0 
 
 
@@ -76,14 +76,12 @@ class GameMatrix:
           # if there's a merge:
             # self.add_score()
 
-            
-            
             for i in range(self.dimension):
                
                 j = self.dimension - 1
                 while j > 0:
                     for k in range(j - 1, -1, -1):
-                            if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] != self.matrix[i][k]: # skip adjacent different numbers greater than 0
+                            if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and (self.matrix[i][j] != self.matrix[i][k]) and abs(k - j) == 1: # skip adjacent different numbers greater than 0
                                   break
                             elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
                                   self.matrix[i][j] = self.matrix[i][j] + self.matrix[i][k] # merge the block
@@ -94,8 +92,6 @@ class GameMatrix:
                                   self.matrix[i][k] = 0 # remove the moved number
                     j -= 1
                     
-
-
             pass 
 
 
@@ -160,7 +156,6 @@ main()
 # SCREEN
 """ 
 use tabulate
-
 """
 
 
