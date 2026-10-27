@@ -45,7 +45,7 @@
 class GameMatrix:
     def __init__(self, dimension):
         self.dimension = dimension
-        self.matrix = [[4, 2, 4, 2, 4, 0, 0 , 0], 
+        self.matrix = [[4, 2, 4, 2, 4, 2, 4 , 2], 
                        [16, 8, 4, 2, 0, 0, 0, 0], 
                        [2, 2, 4, 4, 6, 0, 0 , 0], 
                        [6, 2, 2, 8, 8, 0, 0 , 0], 
@@ -106,9 +106,9 @@ class GameMatrix:
 
             for i in range(self.dimension):
                
-                j = self.dimension - 1
-                while j > 0:
-                    for k in range(j - 1, -1, -1):
+                j = 0
+                while j < self.dimension:
+                    for k in range(j + 1, self.dimension):
                             if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and (self.matrix[i][j] != self.matrix[i][k]): # skip different numbers greater than 0
                                   break
                             elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
@@ -118,7 +118,7 @@ class GameMatrix:
                             elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
                                   self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
                                   self.matrix[i][k] = 0 # remove the moved number
-                    j -= 1   
+                    j += 1   
             pass 
 
 
@@ -168,7 +168,7 @@ def main():
 
     print(f"before: {threeBythree.matrix}")
 
-    threeBythree.merge_blocks_to_the_right()
+    threeBythree.merge_blocks_to_the_left()
     
     print(f"after: {threeBythree.matrix}")
         
