@@ -45,37 +45,41 @@
 class GameMatrix:
     def __init__(self, dimension):
         self.dimension = dimension
-        self.matrix = [[4, 2, 4, 2, 4, 2, 4 , 2], 
-                       [16, 8, 4, 2, 0, 0, 0, 0], 
-                       [2, 2, 4, 4, 6, 0, 0 , 0], 
-                       [6, 2, 2, 8, 8, 0, 0 , 0], 
-                       [2, 2, 9, 2, 0, 0, 0 , 0],
-                       [2, 2, 9, 2, 0, 0, 2 , 0],
-                       [2, 2, 9, 2, 0, 0, 0 , 0],
-                       [2, 2, 9, 2, 0, 0, 2 , 2]]
+        self.matrix = [[0, 0, 0, 0, 0, 0, 0 , 0], 
+                       [0, 0, 0, 0, 0, 0, 0, 0], 
+                       [0, 0, 0, 0, 0, 0, 0 , 0], 
+                       [0, 0, 0, 0, 4, 0, 0 , 0], 
+                       [0, 0, 0, 2, 0, 0, 0 , 0],
+                       [0, 0, 0, 0, 0, 0, 0 , 0],
+                       [0, 0, 0, 0, 0, 0, 0 , 0],
+                       [0, 0, 0, 0, 0, 0, 0 , 0]]
         self.score = 0 
+
+    def display_game_grid_and_blocks(self):
+        pass
 
 
     # spawn two blocks initially
     def start_game():
-        # loading the matrix
         # spawn two blocks in a random location, each block is either a 2 or a 4
         pass 
 
     # movements
     def slide_right(self):
-        self.move_blocks_to_the_right()
+        self.merge_blocks_to_the_right()
         self.spawn_random_number()
-        pass
 
     def slide_left(self):
-            pass
+        self.merge_blocks_to_the_left()
+        self.spawn_random_number()
 
     def slide_up(self):
-            pass
+        self.merge_blocks_up()
+        self.spawn_random_number()
 
     def slide_down(self):
-            pass
+        self.merge_blocks_down()
+        self.spawn_random_number()
 
     
     # merges the blocks
@@ -121,7 +125,7 @@ class GameMatrix:
                     j += 1   
             pass 
 
-    def merge_blocks_to_the_down(self):
+    def merge_blocks_down(self):
           # if there's a merge:
             # self.add_score()
 
@@ -142,7 +146,7 @@ class GameMatrix:
                     j -= 1   
             pass 
     
-    def merge_blocks_to_the_up(self):
+    def merge_blocks_up(self):
           # if there's a merge:
             # self.add_score()
 
@@ -168,8 +172,11 @@ class GameMatrix:
     def add_score(self):
           pass 
 
+    def generate_random_number():
+          pass
+
     # only ONE! either a 2 or 4
-    def spawn_random_number():
+    def spawn_random_number(self):
           pass 
 
     def two_thousand_forty_eight_block_exist():
@@ -183,8 +190,9 @@ class GameMatrix:
 def main():
     # ask the player for the dimesion
 
+    # start_game()
     # while True
-        # display the n x n grid with two blocks
+        # display the n x n grid 
 
 
         # ask the player a move (left, right, down and up arrow key)
