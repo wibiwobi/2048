@@ -50,9 +50,9 @@ class GameMatrix:
                        [2, 2, 4, 4, 6, 0, 0 , 0], 
                        [6, 2, 2, 8, 8, 0, 0 , 0], 
                        [2, 2, 9, 2, 0, 0, 0 , 0],
+                       [2, 2, 9, 2, 0, 0, 2 , 0],
                        [2, 2, 9, 2, 0, 0, 0 , 0],
-                       [2, 2, 9, 2, 0, 0, 0 , 0],
-                       [2, 2, 9, 2, 0, 0, 0 , 0]]
+                       [2, 2, 9, 2, 0, 0, 2 , 2]]
         self.score = 0 
 
 
@@ -121,6 +121,48 @@ class GameMatrix:
                     j += 1   
             pass 
 
+    def merge_blocks_to_the_down(self):
+          # if there's a merge:
+            # self.add_score()
+
+            for i in range(self.dimension):
+               
+                j = self.dimension - 1
+                while j > 0:
+                    for k in range(j - 1, -1, -1):
+                            if (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and (self.matrix[j][i] != self.matrix[k][i]): # skip different numbers greater than 0
+                                  break
+                            elif (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and self.matrix[j][i] == self.matrix[k][i]: # merge
+                                  self.matrix[j][i] = self.matrix[j][i] + self.matrix[k][i] # merge the block
+                                  self.matrix[k][i] = 0 # remove the merged number
+                                  break  
+                            elif self.matrix[j][i] == 0 and self.matrix[k][i] > 0:
+                                  self.matrix[j][i] = self.matrix[k][i] # move the number to the empty space
+                                  self.matrix[k][i] = 0 # remove the moved number
+                    j -= 1   
+            pass 
+    
+    def merge_blocks_to_the_up(self):
+          # if there's a merge:
+            # self.add_score()
+
+            for i in range(self.dimension):
+               
+                j = 0
+                while j < self.dimension:
+                    for k in range(j + 1, self.dimension):
+                            if (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and (self.matrix[j][i] != self.matrix[k][i]): # skip different numbers greater than 0
+                                  break
+                            elif (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and self.matrix[j][i] == self.matrix[k][i]: # merge
+                                  self.matrix[j][i] = self.matrix[j][i] + self.matrix[k][i] # merge the block
+                                  self.matrix[k][i] = 0 # remove the merged number
+                                  break  
+                            elif self.matrix[j][i] == 0 and self.matrix[k][i] > 0:
+                                  self.matrix[j][i] = self.matrix[k][i] # move the number to the empty space
+                                  self.matrix[k][i] = 0 # remove the moved number
+                    j += 1   
+            pass 
+    
 
     # compute score
     def add_score(self):
@@ -166,11 +208,15 @@ def main():
 
     threeBythree = GameMatrix(8)  
 
-    print(f"before: {threeBythree.matrix}")
+    for row in threeBythree.matrix:
+          print(row)
 
-    threeBythree.merge_blocks_to_the_left()
+    threeBythree.merge_blocks_to_the_up()
+
+    print("\n")
     
-    print(f"after: {threeBythree.matrix}")
+    for row in threeBythree.matrix:
+              print(row)
         
 
 main()
