@@ -48,7 +48,7 @@ import random
 class GameMatrix:
     def __init__(self, dimension):
         self.dimension = dimension
-        self.matrix = [[0] * dimension] * dimension
+        self.matrix = [[0] * dimension for _ in range(self.dimension)]
         self.score = 0 
 
     def display_game_grid_and_blocks(self):
@@ -169,12 +169,29 @@ class GameMatrix:
     def add_score(self):
           pass 
 
-    def generate_random_number():
-          pass
+    def generate_random_number(self):
+          random_number = random.randint(1, 100)
+          print(random_number)
+          if (random_number > 0) and (random_number < 91): # ranges from 1 to 90 (90 percent chance)
+               return 2
+          else: # ranges from 91 to 100 (10 percent chance)
+               return 4
 
     # only ONE! either a 2 or 4
-    def spawn_random_number(self):
-          pass 
+    def spawn_random_number(self, random_number):
+
+          # record all the empty cells in one array
+          empty_cells = []
+          for i in range(self.dimension):
+               for j in range(self.dimension):
+                    if self.matrix[i][j] == 0:
+                         empty_cells.append([i, j]) 
+
+          # generate a random number based from the length of the empty cells array
+          random_location = random.randint(0, len(empty_cells) - 1)
+
+          a, b = empty_cells[random_number]
+          self.matrix[a][b] = random_number
 
     def two_thousand_forty_eight_block_exist():
           pass 
@@ -200,6 +217,9 @@ def main():
 
     gameMatrix = GameMatrix(dimension)
     gameMatrix.start_game()
+
+    print(gameMatrix.matrix)
+    input()
         
     # while True
         # display the n x n grid 
@@ -226,6 +246,7 @@ def main():
 
 
 main()
+
     
 # Functions
 # Variables
