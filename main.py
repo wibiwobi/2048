@@ -42,17 +42,13 @@
     # methods
 
 
+import time
+import random
+
 class GameMatrix:
     def __init__(self, dimension):
         self.dimension = dimension
-        self.matrix = [[0, 0, 0, 0, 0, 0, 0 , 0], 
-                       [0, 0, 0, 0, 0, 0, 0, 0], 
-                       [0, 0, 0, 0, 0, 0, 0 , 0], 
-                       [0, 0, 0, 0, 4, 0, 0 , 0], 
-                       [0, 0, 0, 2, 0, 0, 0 , 0],
-                       [0, 0, 0, 0, 0, 0, 0 , 0],
-                       [0, 0, 0, 0, 0, 0, 0 , 0],
-                       [0, 0, 0, 0, 0, 0, 0 , 0]]
+        self.matrix = [[0] * dimension] * dimension
         self.score = 0 
 
     def display_game_grid_and_blocks(self):
@@ -60,8 +56,9 @@ class GameMatrix:
 
 
     # spawn two blocks initially
-    def start_game():
-        # spawn two blocks in a random location, each block is either a 2 or a 4
+    def start_game(self):
+        self.spawn_random_number(self.generate_random_number())
+        self.spawn_random_number(self.generate_random_number())
         pass 
 
     # movements
@@ -189,8 +186,21 @@ class GameMatrix:
 
 def main():
     # ask the player for the dimesion
+    while True:
+        try:
+            dimension = int(input("Enter dimension size: "))
+            if dimension < 3 or dimension > 8:
+                raise ValueError("dimension should be less than 9 and greater than 2")
+            else: 
+                break 
+        except Exception as e:
+            print(e)
+            time.sleep(2)
+            print("\033[1A\r\x1b[2K" * 2, end ="")
 
-    # start_game()
+    gameMatrix = GameMatrix(dimension)
+    gameMatrix.start_game()
+        
     # while True
         # display the n x n grid 
 
@@ -214,18 +224,6 @@ def main():
 
         # clear the screen then display the grid again and ask the player a move
 
-    threeBythree = GameMatrix(8)  
-
-    for row in threeBythree.matrix:
-          print(row)
-
-    threeBythree.merge_blocks_to_the_up()
-
-    print("\n")
-    
-    for row in threeBythree.matrix:
-              print(row)
-        
 
 main()
     
