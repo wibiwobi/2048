@@ -44,6 +44,7 @@
 
 import time
 import random
+import keyboard
 
 class GameMatrix:
     def __init__(self, dimension):
@@ -228,17 +229,21 @@ def main():
     while True:
         gameMatrix.display_matrix()
 
-        input()
+        print("\n use arrow keys to slide...")
+
+        
 
         # ask the player a move (left, right, down and up arrow key)
-        # if left:
-            # slide_left
-        # elif right:
-            # slide_right
-        # elif up:
-            # slide_up
-        # elif down:   
-            # slide_down  
+        key_pressed = keyboard.read_event()
+
+        if key_pressed.name == "left":
+            gameMatrix.slide_left()
+        elif key_pressed.name == "rigt":
+            gameMatrix.slide_right()
+        elif key_pressed.name == "up":
+            gameMatrix.slide_up()
+        elif key_pressed.name == "down":   
+            gameMatrix.slide_down()
 
 
         # if player_is_out_of_moves():
