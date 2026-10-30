@@ -171,7 +171,7 @@ class GameMatrix:
 
     def generate_random_number(self):
           random_number = random.randint(1, 100)
-          print(random_number)
+
           if (random_number > 0) and (random_number < 91): # ranges from 1 to 90 (90 percent chance)
                return 2
           else: # ranges from 91 to 100 (10 percent chance)
@@ -198,6 +198,12 @@ class GameMatrix:
 
     def player_is_out_of_moves():
           pass
+
+    def display_matrix(self):
+         for row in self.matrix:
+              for number in row:
+                   print(f"{number:^3}", end = "")
+              print()     
           
 
 
@@ -217,13 +223,12 @@ def main():
 
     gameMatrix = GameMatrix(dimension)
     gameMatrix.start_game()
-
-    print(gameMatrix.matrix)
-    input()
+    
         
-    # while True
-        # display the n x n grid 
+    while True:
+        gameMatrix.display_matrix()
 
+        input()
 
         # ask the player a move (left, right, down and up arrow key)
         # if left:
