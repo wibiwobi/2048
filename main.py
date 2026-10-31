@@ -30,27 +30,27 @@
 """
 
 
-# Learn OOP 
-
-# TODO Learn from mistakes based from the last project
-
-
-
- # TODO: Double check if the logic of the merging is correct
-# Classes
-    # constructor
-    # methods
+# TODO: bugs
+"""
+    - there's no edge case the prevents a number from spawning if zero blocks move 
+     
+"""
 
 
 import time
 import random
 import keyboard
+from rich.console import Console 
+from rich.table import Table 
+from rich import box
 
 class GameMatrix:
     def __init__(self, dimension):
         self.dimension = dimension
         self.matrix = [[0] * dimension for _ in range(self.dimension)]
         self.score = 0 
+
+        
 
     def display_game_grid_and_blocks(self):
         pass
@@ -60,24 +60,23 @@ class GameMatrix:
     def start_game(self):
         self.spawn_random_number(self.generate_random_number())
         self.spawn_random_number(self.generate_random_number())
-        pass 
 
     # movements
     def slide_right(self):
         self.merge_blocks_to_the_right()
-        self.spawn_random_number()
+        self.spawn_random_number(self.generate_random_number())
 
     def slide_left(self):
         self.merge_blocks_to_the_left()
-        self.spawn_random_number()
+        self.spawn_random_number(self.generate_random_number())
 
     def slide_up(self):
         self.merge_blocks_up()
-        self.spawn_random_number()
+        self.spawn_random_number(self.generate_random_number())
 
     def slide_down(self):
         self.merge_blocks_down()
-        self.spawn_random_number()
+        self.spawn_random_number(self.generate_random_number())
 
     
     # merges the blocks
@@ -191,7 +190,7 @@ class GameMatrix:
           # generate a random number based from the length of the empty cells array
           random_location = random.randint(0, len(empty_cells) - 1)
 
-          a, b = empty_cells[random_number]
+          a, b = empty_cells[random_location] # get the index of the random location
           self.matrix[a][b] = random_number
 
     def two_thousand_forty_eight_block_exist():
@@ -201,11 +200,34 @@ class GameMatrix:
           pass
 
     def display_matrix(self):
+        """ 
          for row in self.matrix:
               for number in row:
-                   print(f"{number:^3}", end = "")
+                   if number == 0:
+                        print(f"{" ":^3}", end = "")
+                   else: 
+                        print(f"{number:^3}", end = "")
               print()     
-          
+        """
+
+        console = Console() 
+        table = Table(box=box.ROUNDED, show_lines=True)
+
+        # add column headers for table
+        for i in range(1, self.dimension + 1):
+            table.add_column("0" + str(i), style="bold white", justify="center") 
+
+        # add all the rows to table
+        for row in self.matrix:
+            row = ["" if num == 0 else str(num) for num in row] # convert all values to str in each row
+            table.add_row(*row)
+
+        console.print(table)    
+
+        
+
+
+
 
 
 def main():
@@ -228,22 +250,22 @@ def main():
         
     while True:
         gameMatrix.display_matrix()
-
         print("\n use arrow keys to slide...")
 
         
-
         # ask the player a move (left, right, down and up arrow key)
         key_pressed = keyboard.read_event()
+        print("\033[1A\r\x1b[2K" * 99, end ="")
 
         if key_pressed.name == "left":
             gameMatrix.slide_left()
-        elif key_pressed.name == "rigt":
+        elif key_pressed.name == "right":
             gameMatrix.slide_right()
         elif key_pressed.name == "up":
             gameMatrix.slide_up()
         elif key_pressed.name == "down":   
             gameMatrix.slide_down()
+
 
 
         # if player_is_out_of_moves():
@@ -253,8 +275,9 @@ def main():
 
 
         # clear the screen then display the grid again and ask the player a move
+        time.sleep(0.1)
 
-
+         
 main()
 
     
