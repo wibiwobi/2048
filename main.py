@@ -43,6 +43,7 @@ import keyboard
 from rich.console import Console 
 from rich.table import Table 
 from rich import box
+from rich.text import Text
 
 class GameMatrix:
     def __init__(self, dimension):
@@ -199,6 +200,26 @@ class GameMatrix:
     def player_is_out_of_moves():
           pass
 
+
+    def get_color(self, num):
+         number_colors = {
+            2: "bold #ffffff",     # Crisp Ice White
+            4: "bold #10b981",     # Emerald Green
+            8: "bold #f59e0b",     # Neon Amber
+            16: "bold #3b82f6",    # Electric Blue
+            32: "bold #ec4899",    # Hot Pink
+            64: "bold #a855f7",    # Bright Purple
+            128: "bold #ef4444",   # Crimson Red
+            256: "bold #06b6d4",   # Cyber Cyan
+            512: "bold #84cc16",   # Lime Green
+            1024: "bold #f97316",  # Pure Orange
+            2048: "bold #eab308"   # Laser Yellow
+        }
+
+
+         
+         return number_colors[num]
+
     def display_matrix(self):
         """ 
          for row in self.matrix:
@@ -219,8 +240,10 @@ class GameMatrix:
 
         # add all the rows to table
         for row in self.matrix:
-            row = ["" if num == 0 else str(num) for num in row] # convert all values to str in each row
+            row = ["" if num == 0 else Text(str(num), self.get_color(num)) for num in row] # convert all values to str in each row
             table.add_row(*row)
+
+                 
 
         console.print(table)    
 
@@ -287,9 +310,5 @@ main()
 
 
 # SCREEN
-""" 
-use tabulate
-"""
-
 
 # FLOW
