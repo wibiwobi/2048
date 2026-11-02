@@ -290,11 +290,12 @@ def main():
             gameMatrix.slide_down()
 
 
-
-        # if player_is_out_of_moves():
+        if gameMatrix.two_thousand_forty_eight_block_exist():
+            print("You Won!!!!!")
+            break
+        # elif player_is_out_of_moves():
             # game over
-        # elif two_thousand_forty_eight_block_exist():
-            # winner !
+        
 
 
         # clear the screen then display the grid again and ask the player a move
