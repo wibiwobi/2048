@@ -51,11 +51,6 @@ class GameMatrix:
         self.matrix = [[0] * dimension for _ in range(self.dimension)]
         self.score = 0 
 
-        
-
-    def display_game_grid_and_blocks(self):
-        pass
-
 
     # spawn two blocks initially
     def start_game(self):
@@ -335,10 +330,6 @@ class GameMatrix:
 
         
 
-
-
-
-
 def main():
     # ask the player for the dimesion
     while True:
@@ -373,25 +364,34 @@ def main():
         if key_pressed.name == "left" and block_can_move_or_merge_to_left:
             gameMatrix.slide_left()
             gameMatrix.spawn_random_number(gameMatrix.generate_random_number())
+            
 
         elif key_pressed.name == "right" and block_can_move_or_merge_to_right:
             gameMatrix.slide_right()
             gameMatrix.spawn_random_number(gameMatrix.generate_random_number())
+            
 
         elif key_pressed.name == "up" and block_can_move_or_merge_to_up:
             gameMatrix.slide_up()
             gameMatrix.spawn_random_number(gameMatrix.generate_random_number())
+            
 
         elif key_pressed.name == "down" and block_can_move_or_merge_to_down:   
             gameMatrix.slide_down()
             gameMatrix.spawn_random_number(gameMatrix.generate_random_number())
 
 
-        # TODO: fix logic for game over
+        block_can_move_or_merge_to_left = gameMatrix.block_is_movable_or_mergeable_to_left() 
+        block_can_move_or_merge_to_right = gameMatrix.block_is_movable_or_mergeable_to_right() 
+        block_can_move_or_merge_to_up = gameMatrix.block_is_movable_or_mergeable_to_up() 
+        block_can_move_or_merge_to_down = gameMatrix.block_is_movable_or_mergeable_to_down() 
+
+
         if gameMatrix.two_thousand_forty_eight_block_exist():
             print("You Won!!!!!")
             break
         elif not(block_can_move_or_merge_to_left or block_can_move_or_merge_to_right or block_can_move_or_merge_to_up or block_can_move_or_merge_to_down):
+            gameMatrix.display_matrix()
             print("Game Over.....")
             break
 
