@@ -30,10 +30,10 @@
 """
 
 
-# TODO: bugs
+# TODO: stuff to add
 """
-    - there's no edge case the prevents a number from spawning if zero blocks move 
-     
+    - prevent program from spawning a block if after the slide, not a single block moves or merges
+ 
 """
 
 
@@ -65,19 +65,15 @@ class GameMatrix:
     # movements
     def slide_right(self):
         self.merge_blocks_to_the_right()
-        self.spawn_random_number(self.generate_random_number())
 
     def slide_left(self):
         self.merge_blocks_to_the_left()
-        self.spawn_random_number(self.generate_random_number())
 
     def slide_up(self):
         self.merge_blocks_up()
-        self.spawn_random_number(self.generate_random_number())
 
     def slide_down(self):
         self.merge_blocks_down()
-        self.spawn_random_number(self.generate_random_number())
 
     
     # merges the blocks
@@ -100,7 +96,6 @@ class GameMatrix:
                                   self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
                                   self.matrix[i][k] = 0 # remove the moved number
                     j -= 1   
-            pass 
     
     def merge_blocks_to_the_left(self):
           # if there's a merge:
@@ -121,7 +116,7 @@ class GameMatrix:
                                   self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
                                   self.matrix[i][k] = 0 # remove the moved number
                     j += 1   
-            pass 
+        
 
     def merge_blocks_down(self):
           # if there's a merge:
@@ -142,7 +137,7 @@ class GameMatrix:
                                   self.matrix[j][i] = self.matrix[k][i] # move the number to the empty space
                                   self.matrix[k][i] = 0 # remove the moved number
                     j -= 1   
-            pass 
+          
     
     def merge_blocks_up(self):
           # if there's a merge:
@@ -163,7 +158,87 @@ class GameMatrix:
                                   self.matrix[j][i] = self.matrix[k][i] # move the number to the empty space
                                   self.matrix[k][i] = 0 # remove the moved number
                     j += 1   
-            pass 
+            
+
+
+
+
+
+
+
+
+
+
+    def block_is_movable_or_mergeable_to_left(self):
+        for i in range(self.dimension):      
+            j = 0
+            while j < self.dimension:
+                for k in range(j + 1, self.dimension):
+                        if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and (self.matrix[i][j] != self.matrix[i][k]): # skip different numbers greater than 0
+                            break
+                        # block can be merged
+                        elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: 
+                            return True
+                        # block is movable
+                        elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
+                            return True
+                j += 1
+        return False   
+
+        
+
+    def block_is_movable_or_mergeable_to_right(self):
+        for i in range(self.dimension):         
+            j = self.dimension - 1
+            while j > 0:
+                for k in range(j - 1, -1, -1):
+                        if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and (self.matrix[i][j] != self.matrix[i][k]): # skip different numbers greater than 0
+                            break
+                        # block can be merged
+                        elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
+                            return True
+                        # block can be moved
+                        elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
+                            return True
+                j -= 1
+        return False
+
+    
+
+    def block_is_movable_or_mergeable_to_up(self):
+        for i in range(self.dimension):            
+            j = 0
+            while j < self.dimension:
+                for k in range(j + 1, self.dimension):
+                        if (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and (self.matrix[j][i] != self.matrix[k][i]): # skip different numbers greater than 0
+                            break
+                        # block can be merged
+                        elif (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and self.matrix[j][i] == self.matrix[k][i]: # merge
+                            return True 
+                        # block can be moved
+                        elif self.matrix[j][i] == 0 and self.matrix[k][i] > 0:
+                            return True
+                j += 1   
+        return False
+
+
+    def block_is_movable_or_mergeable_to_down(self):
+        for i in range(self.dimension):     
+            j = self.dimension - 1
+            while j > 0:
+                for k in range(j - 1, -1, -1):
+                        if (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and (self.matrix[j][i] != self.matrix[k][i]): # skip different numbers greater than 0
+                            break
+                        # block can be merge
+                        elif (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and self.matrix[j][i] == self.matrix[k][i]: # merge
+                            return True
+                        # block ca moved
+                        elif self.matrix[j][i] == 0 and self.matrix[k][i] > 0:
+                            return True 
+                j -= 1 
+        return False 
+                   
+         
     
 
     # compute score
@@ -178,15 +253,21 @@ class GameMatrix:
           else: # ranges from 91 to 100 (10 percent chance)
                return 4
 
+    def get_all_empty_cells_index(self):
+        empty_cells = []
+        for i in range(self.dimension):
+            for j in range(self.dimension):
+                if self.matrix[i][j] == 0:
+                        empty_cells.append([i, j]) 
+
+        return empty_cells
+         
+          
     # only ONE! either a 2 or 4
     def spawn_random_number(self, random_number):
 
           # record all the empty cells in one array
-          empty_cells = []
-          for i in range(self.dimension):
-               for j in range(self.dimension):
-                    if self.matrix[i][j] == 0:
-                         empty_cells.append([i, j]) 
+          empty_cells = self.get_all_empty_cells_index()
 
           # generate a random number based from the length of the empty cells array
           random_location = random.randint(0, len(empty_cells) - 1)
@@ -194,12 +275,17 @@ class GameMatrix:
           a, b = empty_cells[random_location] # get the index of the random location
           self.matrix[a][b] = random_number
 
-    def two_thousand_forty_eight_block_exist():
-          pass 
+    def two_thousand_forty_eight_block_exist(self):
+        for row in self.matrix:
+              for num in row:
+                   if num == 2048:
+                        return True 
+        return False          
+          
 
-    def player_is_out_of_moves():
-          pass
-
+    def player_is_out_of_moves(self):
+          empty_cells = self.get_all_empty_cells_index()
+          return True if len(empty_cells) == 0 else False
 
     def get_color(self, num):
          number_colors = {
@@ -278,25 +364,38 @@ def main():
         
         # ask the player a move (left, right, down and up arrow key)
         key_pressed = keyboard.read_event()
-        print("\033[1A\r\x1b[2K" * 99, end ="")
+        
+        block_can_move_or_merge_to_left = gameMatrix.block_is_movable_or_mergeable_to_left() 
+        block_can_move_or_merge_to_right = gameMatrix.block_is_movable_or_mergeable_to_right() 
+        block_can_move_or_merge_to_up = gameMatrix.block_is_movable_or_mergeable_to_up() 
+        block_can_move_or_merge_to_down = gameMatrix.block_is_movable_or_mergeable_to_down() 
 
-        if key_pressed.name == "left":
+        if key_pressed.name == "left" and block_can_move_or_merge_to_left:
             gameMatrix.slide_left()
-        elif key_pressed.name == "right":
+            gameMatrix.spawn_random_number(gameMatrix.generate_random_number())
+
+        elif key_pressed.name == "right" and block_can_move_or_merge_to_right:
             gameMatrix.slide_right()
-        elif key_pressed.name == "up":
+            gameMatrix.spawn_random_number(gameMatrix.generate_random_number())
+
+        elif key_pressed.name == "up" and block_can_move_or_merge_to_up:
             gameMatrix.slide_up()
-        elif key_pressed.name == "down":   
+            gameMatrix.spawn_random_number(gameMatrix.generate_random_number())
+
+        elif key_pressed.name == "down" and block_can_move_or_merge_to_down:   
             gameMatrix.slide_down()
+            gameMatrix.spawn_random_number(gameMatrix.generate_random_number())
 
 
+        # TODO: fix logic for game over
         if gameMatrix.two_thousand_forty_eight_block_exist():
             print("You Won!!!!!")
             break
-        # elif player_is_out_of_moves():
-            # game over
-        
+        elif not(block_can_move_or_merge_to_left or block_can_move_or_merge_to_right or block_can_move_or_merge_to_up or block_can_move_or_merge_to_down):
+            print("Game Over.....")
+            break
 
+        print("\033[1A\r\x1b[2K" * 99, end ="")
 
         # clear the screen then display the grid again and ask the player a move
         time.sleep(0.1)
