@@ -88,9 +88,10 @@ class GameMatrix:
                             if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and (self.matrix[i][j] != self.matrix[i][k]): # skip different numbers greater than 0
                                   break
                             elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
+                                  self.add_score(self.matrix[i][j])
                                   self.matrix[i][j] = self.matrix[i][j] + self.matrix[i][k] # merge the block
                                   self.matrix[i][k] = 0 # remove the merged number
-                                  self.add_score(self.matrix[i][j])
+                                  
                                   break 
                             elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
                                   self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
@@ -109,9 +110,10 @@ class GameMatrix:
                             if (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and (self.matrix[i][j] != self.matrix[i][k]): # skip different numbers greater than 0
                                   break
                             elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
+                                  self.add_score(self.matrix[i][j])
                                   self.matrix[i][j] = self.matrix[i][j] + self.matrix[i][k] # merge the block
                                   self.matrix[i][k] = 0 # remove the merged number
-                                  self.add_score(self.matrix[i][j])
+                                  
                                   break 
                             elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
                                   self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
@@ -131,9 +133,10 @@ class GameMatrix:
                             if (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and (self.matrix[j][i] != self.matrix[k][i]): # skip different numbers greater than 0
                                   break
                             elif (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and self.matrix[j][i] == self.matrix[k][i]: # merge
+                                  self.add_score(self.matrix[j][i])
                                   self.matrix[j][i] = self.matrix[j][i] + self.matrix[k][i] # merge the block
                                   self.matrix[k][i] = 0 # remove the merged number
-                                  self.add_score(self.matrix[j][i])
+                                  
                                   break  
                             elif self.matrix[j][i] == 0 and self.matrix[k][i] > 0:
                                   self.matrix[j][i] = self.matrix[k][i] # move the number to the empty space
@@ -153,9 +156,10 @@ class GameMatrix:
                             if (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and (self.matrix[j][i] != self.matrix[k][i]): # skip different numbers greater than 0
                                   break
                             elif (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and self.matrix[j][i] == self.matrix[k][i]: # merge
+                                  self.add_score(self.matrix[j][i])
                                   self.matrix[j][i] = self.matrix[j][i] + self.matrix[k][i] # merge the block
                                   self.matrix[k][i] = 0 # remove the merged number
-                                  self.add_score(self.matrix[j][i])
+                                  
                                   break  
                             elif self.matrix[j][i] == 0 and self.matrix[k][i] > 0:
                                   self.matrix[j][i] = self.matrix[k][i] # move the number to the empty space
@@ -239,12 +243,6 @@ class GameMatrix:
                 j -= 1 
         return False 
                    
-         
-    
-
-    # compute score
-    def add_score(self):
-          pass 
 
     def generate_random_number(self):
           random_number = random.randint(1, 100)
@@ -356,6 +354,7 @@ def main():
         
     while True:
         gameMatrix.display_matrix()
+        print(f"Score: {gameMatrix.score}")
         # TODO: display score here
         print("\n use arrow keys to slide...")
 
