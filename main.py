@@ -70,6 +70,10 @@ class GameMatrix:
     def slide_down(self):
         self.merge_blocks_down()
 
+    def add_score(self, number):
+         self.score += number * 2
+         
+
     
     # merges the blocks
     def merge_blocks_to_the_right(self):
@@ -86,6 +90,7 @@ class GameMatrix:
                             elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
                                   self.matrix[i][j] = self.matrix[i][j] + self.matrix[i][k] # merge the block
                                   self.matrix[i][k] = 0 # remove the merged number
+                                  self.add_score(self.matrix[i][j])
                                   break 
                             elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
                                   self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
@@ -106,6 +111,7 @@ class GameMatrix:
                             elif (self.matrix[i][j] > 0 and self.matrix[i][k] > 0) and self.matrix[i][j] == self.matrix[i][k]: # merge
                                   self.matrix[i][j] = self.matrix[i][j] + self.matrix[i][k] # merge the block
                                   self.matrix[i][k] = 0 # remove the merged number
+                                  self.add_score(self.matrix[i][j])
                                   break 
                             elif self.matrix[i][j] == 0 and self.matrix[i][k] > 0:
                                   self.matrix[i][j] = self.matrix[i][k] # move the number to the empty space
@@ -127,6 +133,7 @@ class GameMatrix:
                             elif (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and self.matrix[j][i] == self.matrix[k][i]: # merge
                                   self.matrix[j][i] = self.matrix[j][i] + self.matrix[k][i] # merge the block
                                   self.matrix[k][i] = 0 # remove the merged number
+                                  self.add_score(self.matrix[j][i])
                                   break  
                             elif self.matrix[j][i] == 0 and self.matrix[k][i] > 0:
                                   self.matrix[j][i] = self.matrix[k][i] # move the number to the empty space
@@ -148,14 +155,13 @@ class GameMatrix:
                             elif (self.matrix[j][i] > 0 and self.matrix[k][i] > 0) and self.matrix[j][i] == self.matrix[k][i]: # merge
                                   self.matrix[j][i] = self.matrix[j][i] + self.matrix[k][i] # merge the block
                                   self.matrix[k][i] = 0 # remove the merged number
+                                  self.add_score(self.matrix[j][i])
                                   break  
                             elif self.matrix[j][i] == 0 and self.matrix[k][i] > 0:
                                   self.matrix[j][i] = self.matrix[k][i] # move the number to the empty space
                                   self.matrix[k][i] = 0 # remove the moved number
                     j += 1   
             
-
-
 
 
 
@@ -350,6 +356,7 @@ def main():
         
     while True:
         gameMatrix.display_matrix()
+        # TODO: display score here
         print("\n use arrow keys to slide...")
 
         
